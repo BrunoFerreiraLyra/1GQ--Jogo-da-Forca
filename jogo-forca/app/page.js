@@ -34,16 +34,28 @@ export default function JogoDaForca() {
     iniciarNovoJogo();
   }, []);
 
+
   return (
     <main className={styles.main}>
       <h1>Jogo da Forca - Países</h1>
-      
       
       <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e0e0e0' }}>
         <p><strong>(Debug) País Sorteado:</strong> {palavraAtual}</p>
         <p><strong>(Debug) Erros Atuais:</strong> {erros}</p>
       </div>
 
+      <div className={styles.palavraContainer}>
+        {palavraAtual.split('').map((letra, index) => {
+          
+          const revelada = letrasTentadas.includes(letra);
+          
+          return (
+            <span key={index} className={styles.letraCaixa}>
+              {revelada ? letra : ""}
+            </span>
+          );
+        })}
+      </div>
+
     </main>
   );
-}
