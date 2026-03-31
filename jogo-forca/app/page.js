@@ -33,7 +33,7 @@ export default function JogoDaForca() {
   useEffect(() => {
     iniciarNovoJogo();
   }, []);
-
+}
 
   return (
     <main className={styles.main}>
