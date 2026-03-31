@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { listaDePaises } from './utils/palavras';
+import { palavras } from './utils/palavras';
 import styles from './page.module.css';
 
 export default function JogoDaForca() {
