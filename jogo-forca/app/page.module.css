@@ -1,0 +1,31 @@
+/* app/page.module.css */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: sans-serif;
+}
+
+.palavraContainer {
+  display: flex;
+  gap: 12px; /* Espaço entre as letras */
+  margin: 40px 0;
+  flex-wrap: wrap; /* Se a palavra for muito grande, ela quebra de linha no celular */
+  justify-content: center;
+}
+
+.letraCaixa {
+  width: 45px;
+  height: 55px;
+  border-bottom: 4px solid #333; /* A linha preta embaixo parecendo um underline grosso */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #1a1a1a;
+  background-color: transparent;
+}

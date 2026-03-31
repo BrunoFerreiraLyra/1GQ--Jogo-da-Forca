@@ -35,18 +35,24 @@ export default function JogoDaForca() {
   }, []);
 }
 
+  // Substitua apenas o 'return' do seu app/page.js por este:
+
   return (
     <main className={styles.main}>
       <h1>Jogo da Forca - Países</h1>
       
+      {/* Caixa de Debug (Vamos deixar aqui por enquanto para facilitar os testes, 
+        depois nós apagamos quando o jogo estiver pronto) 
+      */}
       <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e0e0e0' }}>
         <p><strong>(Debug) País Sorteado:</strong> {palavraAtual}</p>
         <p><strong>(Debug) Erros Atuais:</strong> {erros}</p>
       </div>
 
+      {/* --- ETAPA 3: A PALAVRA OCULTA --- */}
       <div className={styles.palavraContainer}>
         {palavraAtual.split('').map((letra, index) => {
-          
+          // Verifica se a letra atual da iteração já foi clicada pelo usuário
           const revelada = letrasTentadas.includes(letra);
           
           return (
