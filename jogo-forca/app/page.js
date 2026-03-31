@@ -21,10 +21,10 @@ export default function JogoDaForca() {
 
  
   const iniciarNovoJogo = () => {
-    // Sorteia um número aleatório baseado no tamanho do nosso array de países
-    const indiceAleatorio = Math.floor(Math.random() * listaDePaises.length);
+
+    const indiceAleatorio = Math.floor(Math.random() * palavras.length);
     
-    setPalavraAtual(listaDePaises[indiceAleatorio]);
+    setPalavraAtual(palavras[indiceAleatorio]);
     setLetrasTentadas([]);
     setErros(0);
     setStatusDoJogo("jogando");
