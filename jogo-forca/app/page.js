@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { palavras } from './utils/palavras';
 import styles from './page.module.css';
 
+// 1. Array com todas as letras do alfabeto (coloque fora do componente para não recriar toda hora)
+const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
 export default function JogoDaForca() {
   const [palavraAtual, setPalavraAtual] = useState("");
   const [letrasTentadas, setLetrasTentadas] = useState([]);
@@ -23,7 +26,20 @@ export default function JogoDaForca() {
     iniciarNovoJogo();
   }, []);
 
- 
+  // --- 2. A FUNÇÃO DO CLIQUE ---
+  const lidarComClique = (letra) => {
+    // Se a letra já foi clicada ou se o jogo não está rolando, não faz nada
+    if (letrasTentadas.includes(letra) || statusDoJogo !== "jogando") return;
+
+    // Adiciona a letra nova na nossa "memória" de tentativas
+    setLetrasTentadas((prev) => [...prev, letra]);
+
+    // Se a palavra não contiver a letra, é um erro!
+    if (!palavraAtual.includes(letra)) {
+      setErros((prev) => prev + 1);
+    }
+  };
+
   if (!palavraAtual) {
     return (
       <main className={styles.main}>
@@ -31,7 +47,6 @@ export default function JogoDaForca() {
       </main>
     );
   }
-
 
   return (
     <main className={styles.main}>
@@ -52,6 +67,32 @@ export default function JogoDaForca() {
           );
         })}
       </div>
+
+      {/* --- 3. O TECLADO VIRTUAL --- */}
+      <div className={styles.teclado}>
+        {alfabeto.map((letra) => {
+          // Lógicas para saber a cor do botão
+          const jaTentou = letrasTentadas.includes(letra);
+          const acertou = jaTentou && palavraAtual.includes(letra);
+          const errou = jaTentou && !palavraAtual.includes(letra);
+
+          return (
+            <button
+              key={letra}
+              onClick={() => lidarComClique(letra)}
+              disabled={jaTentou} // Desabilita se já clicou
+              className={`
+                ${styles.tecla} 
+                ${acertou ? styles.teclaCorreta : ''} 
+                ${errou ? styles.teclaErrada : ''}
+              `}
+            >
+              {letra}
+            </button>
+          );
+        })}
+      </div>
+
     </main>
   );
 }
