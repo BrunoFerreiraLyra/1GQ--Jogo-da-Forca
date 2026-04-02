@@ -2,11 +2,11 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { palavras } from './utils/palavras';
+import { palavras, codigosBandeiras } from './utils/palavras';
 import styles from './page.module.css';
-import { palavras , codigosBandeiras } from './utils/palavras';
 
 const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
 
 export default function JogoDaForca() {
   const [palavraAtual, setPalavraAtual] = useState("");
