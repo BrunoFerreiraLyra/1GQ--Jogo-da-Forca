@@ -99,7 +99,7 @@ export default function JogoDaForca() {
       {statusDoJogo !== "jogando" && (
         <div className={styles.mensagemFim}>
           <h2 className={statusDoJogo === "vitoria" ? styles.textoVitoria : styles.textoDerrota}>
-            {statusDoJogo === "vitoria" ? "🎉 Você Venceu!" : "💀 Você Perdeu!"}
+            {statusDoJogo === "vitoria" ? " Você Venceu!" : " Você Perdeu!"}
           </h2>
           <button onClick={iniciarNovoJogo} className={styles.botaoReiniciar}>
             Jogar Novamente

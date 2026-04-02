@@ -13,10 +13,15 @@
 /* --- 2. ÁREA DA FORCA --- */
 .forcaArea {
   position: relative;
-  /* Se precisar, ajuste esse tamanho para bater com o do seu Paint */
   width: 250px; 
   height: 300px;
   margin: 20px 0;
+  
+  /* --- NOVIDADES PARA ESCONDER A DIFERENÇA DE FUNDO --- */
+  background-color: #ffffff; /* Fundo branco para bater com a imagem do Paint */
+  border-radius: 12px;       /* Bordas arredondadas para ficar moderno */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra bem levinha */
+  padding: 10px;             /* Dá um respiro para o desenho não grudar na borda */
 }
 
 .imagemBase {
