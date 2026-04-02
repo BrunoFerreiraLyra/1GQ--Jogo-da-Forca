@@ -56,7 +56,28 @@ export default function JogoDaForca() {
         <p><strong>(Debug) País Sorteado:</strong> {palavraAtual}</p>
         <p><strong>(Debug) Erros Atuais:</strong> {erros}</p>
       </div>
+<div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e0e0e0' }}>
+        <p><strong>(Debug) País Sorteado:</strong> {palavraAtual}</p>
+        <p><strong>(Debug) Erros Atuais:</strong> {erros}</p>
+      </div>
 
+      {/* --- ETAPA 5: O BONECO E A FORCA --- */}
+      <div className={styles.forcaArea}>
+        {/* A forca fica no fundo, sempre visível */}
+        <img src="/forca.png" alt="Forca" className={styles.imagemBase} />
+        
+        {/* O boneco só renderiza se os erros forem maiores que zero */}
+        {erros > 0 && erros <= 6 && (
+          <img 
+            src={`/erro-${erros}.png`} 
+            alt={`Boneco erro ${erros}`} 
+            className={styles.imagemBase} 
+          />
+        )}
+      </div>
+
+      {/* --- ETAPA 3: A PALAVRA OCULTA (já estava aqui) --- */}
+      <div className={styles.palavraContainer}></div>
       <div className={styles.palavraContainer}>
         {palavraAtual.split('').map((letra, index) => {
           const revelada = letrasTentadas.includes(letra);
