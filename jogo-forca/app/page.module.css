@@ -1,7 +1,96 @@
 /* app/page.module.css */
 
-/* ... (seu código anterior continua aqui) ... */
+/* --- 1. ESTRUTURA PRINCIPAL --- */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: sans-serif;
+}
 
+/* --- 2. ÁREA DA FORCA --- */
+.forcaArea {
+  position: relative;
+  /* Se precisar, ajuste esse tamanho para bater com o do seu Paint */
+  width: 250px; 
+  height: 300px;
+  margin: 20px 0;
+}
+
+.imagemBase {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* --- 3. A PALAVRA E OS TRACINHOS --- */
+.palavraContainer {
+  display: flex;
+  gap: 15px; 
+  margin: 40px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.letraCaixa {
+  width: 40px;
+  height: 50px;
+  border-bottom: 4px solid #1a1a1a; /* O tracinho embaixo da letra */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px; 
+  font-weight: bold;
+  color: #1a1a1a;
+  background-color: transparent;
+}
+
+/* --- 4. O TECLADO VIRTUAL --- */
+.teclado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+  justify-content: center;
+  max-width: 600px;
+  margin-top: 30px;
+}
+
+.tecla {
+  width: 55px; 
+  height: 55px; 
+  font-size: 22px; 
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: #e5e7eb; 
+  color: #374151; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tecla:hover:not(:disabled) {
+  background-color: #d1d5db; 
+}
+
+.teclaCorreta {
+  background-color: #22c55e !important; /* Verde */
+  color: white !important;
+  cursor: not-allowed;
+}
+
+.teclaErrada {
+  background-color: #ef4444 !important; /* Vermelho */
+  color: white !important;
+  opacity: 0.6; 
+  cursor: not-allowed;
+}
+
+/* --- 5. TELA DE VITÓRIA / DERROTA --- */
 .mensagemFim {
   display: flex;
   flex-direction: column;
@@ -42,7 +131,6 @@
   background-color: #2563eb;
 }
 
-/* Uma animação simples para o modal de fim de jogo aparecer suavemente */
 @keyframes surgir {
   from {
     opacity: 0;
