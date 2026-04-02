@@ -100,7 +100,7 @@ export default function JogoDaForca() {
       {statusDoJogo !== "jogando" && (
         <div className={styles.mensagemFim}>
           <h2 className={statusDoJogo === "vitoria" ? styles.textoVitoria : styles.textoDerrota}>
-            {statusDoJogo === "vitoria" ? "🎉 Você Venceu!" : "💀 Você Perdeu!"}
+            {statusDoJogo === "vitoria" ? "Vitória!" : "Derrota!"}
           </h2>
 
           <img 
