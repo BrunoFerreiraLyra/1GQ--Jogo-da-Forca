@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { palavras } from './utils/palavras';
 import styles from './page.module.css';
 
-// 1. Array com todas as letras do alfabeto (coloque fora do componente para não recriar toda hora)
 const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function JogoDaForca() {
@@ -22,19 +21,38 @@ export default function JogoDaForca() {
     setStatusDoJogo("jogando");
   };
 
+  // Sorteia a primeira palavra ao carregar a página
   useEffect(() => {
     iniciarNovoJogo();
   }, []);
 
-  // --- 2. A FUNÇÃO DO CLIQUE ---
+  // --- ETAPA 6: VERIFICADOR DE VITÓRIA E DERROTA ---
+  // Esse useEffect roda toda vez que 'letrasTentadas' ou 'erros' mudarem
+  useEffect(() => {
+    if (!palavraAtual) return; // Se a palavra ainda não carregou, ignora
+
+    // Verifica Derrota: Se chegou a 6 erros (ou o limite das suas imagens)
+    if (erros >= 6) {
+      setStatusDoJogo("derrota");
+      return;
+    }
+
+    // Verifica Vitória: Checa se TODAS as letras da palavra atual estão no array de tentadas
+    const todasLetrasDescobertas = palavraAtual
+      .split('')
+      .every((letra) => letrasTentadas.includes(letra));
+
+    if (todasLetrasDescobertas && letrasTentadas.length > 0) {
+      setStatusDoJogo("vitoria");
+    }
+  }, [letrasTentadas, erros, palavraAtual]);
+
+
   const lidarComClique = (letra) => {
-    // Se a letra já foi clicada ou se o jogo não está rolando, não faz nada
     if (letrasTentadas.includes(letra) || statusDoJogo !== "jogando") return;
 
-    // Adiciona a letra nova na nossa "memória" de tentativas
     setLetrasTentadas((prev) => [...prev, letra]);
 
-    // Se a palavra não contiver a letra, é um erro!
     if (!palavraAtual.includes(letra)) {
       setErros((prev) => prev + 1);
     }
@@ -52,35 +70,23 @@ export default function JogoDaForca() {
     <main className={styles.main}>
       <h1>Jogo da Forca - Países</h1>
       
-      <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e0e0e0' }}>
-        <p><strong>(Debug) País Sorteado:</strong> {palavraAtual}</p>
-        <p><strong>(Debug) Erros Atuais:</strong> {erros}</p>
-      </div>
-<div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e0e0e0' }}>
-        <p><strong>(Debug) País Sorteado:</strong> {palavraAtual}</p>
-        <p><strong>(Debug) Erros Atuais:</strong> {erros}</p>
-      </div>
-
-      {/* --- ETAPA 5: O BONECO E A FORCA --- */}
+      {/* Área da Forca e Boneco */}
       <div className={styles.forcaArea}>
-        {/* A forca fica no fundo, sempre visível */}
-        <img src="/forca.png" alt="Forca" className={styles.imagemBase} />
-        
-        {/* O boneco só renderiza se os erros forem maiores que zero */}
-        {erros > 0 && erros <= 6 && (
-          <img 
-            src={`/erro-${erros}.png`} 
-            alt={`Boneco erro ${erros}`} 
-            className={styles.imagemBase} 
-          />
-        )}
+        {/* Como você uniu a forca e o boneco na mesma imagem, podemos renderizar apenas a imagem do erro atual.
+            Se erros for 0, podemos exibir um erro-0.png que seria só a forca vazia. */}
+        <img 
+          src={`/erro-${erros}.png`} 
+          alt={`Forca com ${erros} erros`} 
+          className={styles.imagemBase} 
+        />
       </div>
 
-      {/* --- ETAPA 3: A PALAVRA OCULTA (já estava aqui) --- */}
-      <div className={styles.palavraContainer}></div>
+      {/* A Palavra Oculta */}
       <div className={styles.palavraContainer}>
         {palavraAtual.split('').map((letra, index) => {
-          const revelada = letrasTentadas.includes(letra);
+          const revelada = letrasTentadas.includes(letra) || statusDoJogo === "derrota";
+          // Se o jogador perder, revelamos a palavra toda para ele ver qual era!
+          
           return (
             <span key={index} className={styles.letraCaixa}>
               {revelada ? letra : ""}
@@ -89,19 +95,33 @@ export default function JogoDaForca() {
         })}
       </div>
 
-      {/* --- 3. O TECLADO VIRTUAL --- */}
+      {/* --- ETAPA 6: MENSAGEM DE FIM DE JOGO --- */}
+      {statusDoJogo !== "jogando" && (
+        <div className={styles.mensagemFim}>
+          <h2 className={statusDoJogo === "vitoria" ? styles.textoVitoria : styles.textoDerrota}>
+            {statusDoJogo === "vitoria" ? "🎉 Você Venceu!" : "💀 Você Perdeu!"}
+          </h2>
+          <button onClick={iniciarNovoJogo} className={styles.botaoReiniciar}>
+            Jogar Novamente
+          </button>
+        </div>
+      )}
+
+      {/* O Teclado Virtual */}
       <div className={styles.teclado}>
         {alfabeto.map((letra) => {
-          // Lógicas para saber a cor do botão
           const jaTentou = letrasTentadas.includes(letra);
           const acertou = jaTentou && palavraAtual.includes(letra);
           const errou = jaTentou && !palavraAtual.includes(letra);
+          
+          // Trava o teclado se o jogo não estiver mais rodando
+          const tecladoTravado = statusDoJogo !== "jogando";
 
           return (
             <button
               key={letra}
               onClick={() => lidarComClique(letra)}
-              disabled={jaTentou} // Desabilita se já clicou
+              disabled={jaTentou || tecladoTravado} 
               className={`
                 ${styles.tecla} 
                 ${acertou ? styles.teclaCorreta : ''} 
