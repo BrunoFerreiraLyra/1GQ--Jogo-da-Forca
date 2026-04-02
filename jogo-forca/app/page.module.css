@@ -96,18 +96,39 @@
 }
 
 /* --- 5. TELA DE VITÓRIA / DERROTA --- */
+/* app/page.module.css */
+
 .mensagemFim {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   margin: 20px 0;
-  padding: 20px;
-  background-color: #ffffff;
+  padding: 25px;
+  
+  /* MUDANÇA: Fundo cinza claro para destacar o branco das bandeiras */
+  background-color: #f4f4f4; 
+  
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   text-align: center;
   animation: surgir 0.4s ease-out;
+}
+
+.nomePais {
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000; /* Preto como você pediu */
+  margin: 5px 0 15px 0;
+  letter-spacing: 1px;
+}
+
+.bandeira {
+  width: 160px;
+  border-radius: 4px;
+  /* Uma sombra um pouco mais forte ajuda a separar a bandeira do fundo cinza */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+  margin-top: 10px;
 }
 
 .textoVitoria {

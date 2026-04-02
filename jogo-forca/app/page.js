@@ -100,22 +100,25 @@ export default function JogoDaForca() {
       {statusDoJogo !== "jogando" && (
         <div className={styles.mensagemFim}>
           <h2 className={statusDoJogo === "vitoria" ? styles.textoVitoria : styles.textoDerrota}>
-            {statusDoJogo === "vitoria" ? " Vitória!" : " Derrota!"}
+            {statusDoJogo === "vitoria" ? "🎉 Você Venceu!" : "💀 Você Perdeu!"}
           </h2>
 
-          {/* Imagem puxada diretamente da API usando o dicionário */}
           <img 
             src={`https://flagcdn.com/w160/${codigosBandeiras[palavraAtual]}.png`} 
             alt={`Bandeira do(a) ${palavraAtual}`} 
             className={styles.bandeira}
           />
 
+          {/* Nome do País: Pegamos a palavra, deixamos minúscula e aumentamos só a primeira letra */}
+          <p className={styles.nomePais}>
+            {palavraAtual.charAt(0) + palavraAtual.slice(1).toLowerCase()}
+          </p>
+
           <button onClick={iniciarNovoJogo} className={styles.botaoReiniciar}>
             Jogar Novamente
           </button>
         </div>
       )}
-
       {/* O Teclado Virtual */}
       <div className={styles.teclado}>
         {alfabeto.map((letra) => {
