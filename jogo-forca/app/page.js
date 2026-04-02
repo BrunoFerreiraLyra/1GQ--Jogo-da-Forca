@@ -76,7 +76,7 @@ export default function JogoDaForca() {
             Se erros for 0, podemos exibir um erro-0.png que seria só a forca vazia. */}
         <img 
           src={`/erro-${erros}.png`} 
-          alt={'forca'} 
+          alt={`Forca com ${erros} erros`} 
           className={styles.imagemBase} 
         />
       </div>
